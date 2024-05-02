@@ -1,4 +1,6 @@
-export default function Product({ title, rating, price, imageUrl }) {
+import PropTypes from 'prop-types';
+
+function Product({ title, rating, price, imageUrl }) {
   return (
     <div className="product">
       <div className="product-image">
@@ -20,3 +22,10 @@ export default function Product({ title, rating, price, imageUrl }) {
     </div>
   )
 }
+Product.propTypes  = {
+  title: PropTypes.string,
+  rating: PropTypes.string,
+  price: PropTypes.number,
+  imageUrl: PropTypes.string
+}
+export default Product;

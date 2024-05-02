@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 // import { productList } from '../store/productList';
 import Product from './components/Product';
 import './App.css';

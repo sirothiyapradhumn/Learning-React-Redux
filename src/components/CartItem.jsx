@@ -1,14 +1,22 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { decItemQuantity, incItemQuantity } from '../../store/cartItemReducer';
+import { cartRemoveItem, decItemQuantity, incItemQuantity } from '../../store/cartItemReducer';
+import DeleteIcon from '../assets/delete-icon.svg';
+import { wishCartRemoveItem } from '../../store/wishlistReducer';
 
-export default function CartItem({ productID, title, rating, price, imageUrl, quantity }) {
+export default function CartItem({ productID, title, rating, price, imageUrl, quantity, showItemQuantity = true }) {
   const dispatch = useDispatch();
   const handleIncQuantitiy = () => {
     dispatch(incItemQuantity(productID));
   }
   const handleDecQuantitiy = () => {
     dispatch(decItemQuantity(productID));
+  }
+  const handleRemoveWish = () => {
+    dispatch(wishCartRemoveItem(productID));
+  }
+  const handleRemoveCart = () => {
+    dispatch(cartRemoveItem(productID));
   }
   return (
     <div className="cart-item-container">
@@ -20,12 +28,27 @@ export default function CartItem({ productID, title, rating, price, imageUrl, qu
         </div>
       </div>
       <div className="item-price">${price}</div>
-      <div className="item-quantity">
-        <button onClick={handleDecQuantitiy}>-</button>
-        <span>{quantity}</span>
-        <button onClick={handleIncQuantitiy}>+</button>
-      </div>
-      <div className="item-total">${quantity * price}</div>
+      {
+        showItemQuantity
+          ? (
+            <>
+              <div className="item-quantity">
+                <button onClick={handleDecQuantitiy}>-</button>
+                <span>{quantity}</span>
+                <button onClick={handleIncQuantitiy}>+</button>
+              </div>
+              <div className="item-total">${quantity * price}
+              <img className="delete-cart" src={DeleteIcon} alt="delete-icon" onClick={handleRemoveCart}/>
+              </div>
+            </>
+          )
+          :
+          (
+            <div className="cart-icon" >
+              <img className="delete-cart" src={DeleteIcon} alt="delete-icon" onClick={handleRemoveWish}/>
+            </div>
+          )
+      }
     </div>
   )
 }

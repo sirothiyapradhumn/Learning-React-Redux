@@ -39,6 +39,7 @@ button {
   -webkit-box-orient: vertical;
   overflow: hidden;
   margin-top: 12px;
+  min-height: 38px;
 }
 
 .product h3 {
@@ -170,6 +171,7 @@ form button {
 
 .cart-icon {
   position: relative;
+  cursor: pointer;
 }
 
 .cart-items-count {
@@ -191,4 +193,9 @@ form button {
 .wish-cart-icons {
   gap: 10px;
   display: flex;
+}
+
+.delete-cart {
+  width: 25px !important;
+  cursor: pointer;
 }

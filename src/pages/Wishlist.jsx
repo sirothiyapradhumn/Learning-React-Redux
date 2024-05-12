@@ -26,13 +26,11 @@ export default function Wishlist() {
             quantity={quantity}
             imageUrl={imageUrl}
             rating={rating}
+            showItemQuantity={false}
           />
         ))}
         <div className="cart-header cart-item-container">
           <div></div>
-          <div></div>
-          <div></div>
-          {/* <div className="total">${totalItemPrice}</div> */}
         </div>
       </div>
     </div>

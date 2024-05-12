@@ -2,14 +2,14 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartAddItem, incItemQuantity } from '../../store/cartItemReducer';
 
-function Product({ productId, title, rating, price, imageUrl }) {
+function Product({ productID, title, rating, price, imageUrl }) {
   const dispatch = useDispatch();
   const cartItem = useSelector((state) => state.cartItem);
 
   const onClickAddToCart = () => {
-    const itemExistInCart = cartItem.find((item) => item.productID === productId);
-    if(itemExistInCart) return dispatch(incItemQuantity(productId));
-    return dispatch(cartAddItem(productId));
+    const itemExistInCart = cartItem.find((item) => item.productID === productID);
+    if(itemExistInCart) return dispatch(incItemQuantity(productID));
+    return dispatch(cartAddItem({ productID, title, rating, price, imageUrl }));
   }
 
   return (
@@ -28,7 +28,7 @@ function Product({ productId, title, rating, price, imageUrl }) {
       </div>
       <div className="cta-container">
         <button onClick={onClickAddToCart}>Add to Cart</button>
-        <button>Buy Now</button>
+        <button>Add to Wishlist</button>
       </div>
     </div>
   )
@@ -36,7 +36,7 @@ function Product({ productId, title, rating, price, imageUrl }) {
 Product.propTypes  = {
   productId: PropTypes.string,
   title: PropTypes.string,
-  rating: PropTypes.string,
+  rating: PropTypes.number,
   price: PropTypes.number,
   imageUrl: PropTypes.string
 }

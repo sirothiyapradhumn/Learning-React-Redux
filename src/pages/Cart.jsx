@@ -1,33 +1,11 @@
 import React from 'react'
 import CartItem from '../components/CartItem'
+import { useSelector } from 'react-redux'
 
 export default function Cart() {
-  const cartItems = [
-    {
-      id: 1,
-      title: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
-      imageUrl: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
-      quantity: 1,
-      rating: 3.9,
-      price: 109.95,
-    },
-    {
-      id: 2,
-      title: 'Mens Cotton Jacket',
-      imageUrl: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg',
-      quantity: 1,
-      rating: 4.7,
-      price: 55.99,
-    },
-    {
-      id: 3,
-      title: 'Mens Casual Slim Fit',
-      imageUrl: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg',
-      quantity: 1,
-      rating: 2.1,
-      price: 15.99,
-    },
-  ]
+  const cartItems = useSelector((state) => state.cartItem);
+
+  const totalItemPrice = cartItems.reduce((acc, item) => acc+item.price*item.quantity, 0);
 
   return (
     <div className="cart-container">
@@ -39,9 +17,10 @@ export default function Cart() {
           <div className="quantity">Quantity</div>
           <div className="total">Total</div>
         </div>
-        {cartItems.map(({ id, title, rating, price, imageUrl, quantity }) => (
+        {cartItems.map(({ productID, title, rating, price, imageUrl, quantity }) => (
           <CartItem
-            key={id}
+            key={productID}
+            productID={productID}
             title={title}
             price={price}
             quantity={quantity}
@@ -53,7 +32,7 @@ export default function Cart() {
           <div></div>
           <div></div>
           <div></div>
-          <div className="total">$500</div>
+          <div className="total">${totalItemPrice}</div>
         </div>
       </div>
     </div>

@@ -5,8 +5,8 @@ const INC_ITEM_QUANTITY = "cart/addQuantity";
 const DEC_ITEM_QUANTITY = "cart/DecQuantity";
 
 //Action Creator
-export const cartAddItem = (productID, quantity = 1) => {
-  return { type: CART_ADD_ITEM, payload: { productID, quantity } };
+export const cartAddItem = (productData) => {
+  return { type: CART_ADD_ITEM, payload: productData };
 };
 export const cartRemoveItem = (productID) => {
   return { type: CART_REMOVE_ITEM, payload: { productID } };
@@ -22,7 +22,7 @@ export const decItemQuantity = (productID) => {
 export default function cartItemReducer(state = [], action) {
   switch (action.type) {
     case CART_ADD_ITEM:
-      return [...state, action.payload];
+      return [...state, {...action.payload, quantity: 1}];
     case CART_REMOVE_ITEM:
       return state.filter(
         (item) => item.productID !== action.payload.productID

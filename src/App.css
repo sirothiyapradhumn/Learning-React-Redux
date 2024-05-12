@@ -183,7 +183,12 @@ form button {
   display: flex;
   align-items: center;
   justify-content: center;
-  top: 0;
+  top: 5px;
   left: 50%;
   transform: translate(-40%, -90%);
+}
+
+.wish-cart-icons {
+  gap: 10px;
+  display: flex;
 }

@@ -3,8 +3,8 @@ const WISH_CART_ADD_ITEM = "wish/addItem";
 const WISH_CART_REMOVE_ITEM = "wish/removeItem";
 
 //Action Creator
-export const wishCartAddItem = (productID) => {
-  return { type: WISH_CART_ADD_ITEM, payload: { productID } };
+export const wishCartAddItem = (productData) => {
+  return { type: WISH_CART_ADD_ITEM, payload: productData };
 };
 
 export const wishCartRemoveItem = (productID) => {

@@ -1,3 +1,5 @@
+import { produce } from "immer";
+
 // Action type
 const CART_ADD_ITEM = "cart/addItem";
 const CART_REMOVE_ITEM = "cart/removeItem";
@@ -19,29 +21,29 @@ export const decItemQuantity = (productID) => {
 };
 
 // Reducer
-export default function cartItemReducer(state = [], action) {
-  switch (action.type) {
-    case CART_ADD_ITEM:
-      return [...state, {...action.payload, quantity: 1}];
-    case CART_REMOVE_ITEM:
-      return state.filter(
-        (item) => item.productID !== action.payload.productID
-      );
-    case INC_ITEM_QUANTITY:
-      return state.map((item) => {
-        if (item.productID === action.payload.productID) {
-          return { ...item, quantity: item.quantity + 1 };
+export default function cartItemReducer(originalState = [], action) {
+  return produce(originalState, (state) => {
+    const existingItemIndex = state.findIndex(
+      (cartItem) => cartItem.productID === action.payload.productID
+    );
+
+    switch (action.type) {
+      case CART_ADD_ITEM:
+        state.push({ ...action.payload, quantity: 1 });
+        break;
+      case CART_REMOVE_ITEM:
+        state.splice(existingItemIndex, 1);
+        break;
+      case INC_ITEM_QUANTITY:
+        state[existingItemIndex].quantity += 1;
+        break;
+      case DEC_ITEM_QUANTITY:
+        state[existingItemIndex].quantity -= 1;
+        if (state[existingItemIndex].quantity === 0) {
+          state.splice(existingItemIndex, 1);
         }
-        return item;
-      });
-    case DEC_ITEM_QUANTITY:
-      return state.map((item) => {
-          if (item.productID === action.payload.productID) {
-            return { ...item, quantity: item.quantity - 1 };
-          }
-          return item;
-        }).filter((item) => item.quantity > 0);
-    default:
-      return state;
-  }
+        break;
+    }
+    return state;
+  })
 }

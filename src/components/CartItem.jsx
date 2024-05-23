@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { cartRemoveItem, decItemQuantity, incItemQuantity } from '../../store/cartItemReducer';
+import { cartRemoveItem, decItemQuantity, incItemQuantity } from '../../store/slices/cartItemSlice';
 import DeleteIcon from '../assets/delete-icon.svg';
-import { wishCartRemoveItem } from '../../store/wishlistReducer';
+import { wishCartRemoveItem } from '../../store/slices/wishlistSlice';
 
 export default function CartItem({ productID, title, rating, price, imageUrl, quantity, showItemQuantity = true }) {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { cartAddItem, incItemQuantity } from '../../store/cartItemReducer';
-import { wishCartAddItem } from '../../store/wishlistReducer';
+import { cartAddItem, incItemQuantity } from '../../store/slices/cartItemSlice';
+import { wishCartAddItem } from '../../store/slices/wishlistSlice';
 
 function Product({ productID, title, rating, price, imageUrl }) {
   const dispatch = useDispatch();

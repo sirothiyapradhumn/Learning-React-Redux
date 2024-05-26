@@ -7,16 +7,16 @@ import { wishCartRemoveItem } from '../../store/slices/wishlistSlice';
 export default function CartItem({ productID, title, rating, price, imageUrl, quantity, showItemQuantity = true }) {
   const dispatch = useDispatch();
   const handleIncQuantitiy = () => {
-    dispatch(incItemQuantity(productID));
+    dispatch(incItemQuantity({ productID }));
   }
   const handleDecQuantitiy = () => {
-    dispatch(decItemQuantity(productID));
+    dispatch(decItemQuantity({ productID }));
   }
   const handleRemoveWish = () => {
-    dispatch(wishCartRemoveItem(productID));
+    dispatch(wishCartRemoveItem({ productID }));
   }
   const handleRemoveCart = () => {
-    dispatch(cartRemoveItem(productID));
+    dispatch(cartRemoveItem({ productID }));
   }
   return (
     <div className="cart-item-container">
@@ -38,14 +38,14 @@ export default function CartItem({ productID, title, rating, price, imageUrl, qu
                 <button onClick={handleIncQuantitiy}>+</button>
               </div>
               <div className="item-total">${quantity * price}
-              <img className="delete-cart" src={DeleteIcon} alt="delete-icon" onClick={handleRemoveCart}/>
+                <img className="delete-cart" src={DeleteIcon} alt="delete-icon" onClick={handleRemoveCart} />
               </div>
             </>
           )
           :
           (
             <div className="cart-icon" >
-              <img className="delete-cart" src={DeleteIcon} alt="delete-icon" onClick={handleRemoveWish}/>
+              <img className="delete-cart" src={DeleteIcon} alt="delete-icon" onClick={handleRemoveWish} />
             </div>
           )
       }

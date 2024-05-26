@@ -1,13 +1,13 @@
-import { combineReducers, createStore } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import wishlistReducer from "./slices/wishlistSlice";
 import cartItemReducer from "./slices/cartItemSlice";
 import productReducer from "./slices/productSlice";
 
 
-const reducer = combineReducers({
+const reducer = {
   products: productReducer,
   cartItem: cartItemReducer,
   wishList: wishlistReducer,
-});
+};
 
-export const store = createStore(reducer, window.__REDUX_DEVTOOLS_EXTENSION__?.());
+export const store = configureStore({ reducer });

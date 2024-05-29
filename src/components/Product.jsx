@@ -15,8 +15,7 @@ function Product({ productID, title, rating, price, imageUrl }) {
 
   const addToWish = () => dispatch(wishCartAddItem({ productID, title, rating, price, imageUrl }));
 
-  const disableWish = wishList?.find((item) => item.productID === productID);
-  console.log(disableWish);
+  const disableWish = wishList?.length > 0 && wishList?.find((item) => item.productID === productID);
 
   return (
     <div className="product">

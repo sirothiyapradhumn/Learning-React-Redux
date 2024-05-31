@@ -1,5 +1,14 @@
-import { productList } from "../productList";
+import { createSlice } from "@reduxjs/toolkit";
 
-export default function productReducer(state = productList) {
-  return state;
-}
+const slice = createSlice({
+  name: "product",
+  initialState: [],
+  reducers: {
+    updateAllProduct(state, action) {
+      return action.payload;
+    },
+  },
+});
+
+export const { updateAllProduct } = slice.actions;
+export default slice.reducer;

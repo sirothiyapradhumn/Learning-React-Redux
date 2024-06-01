@@ -4,13 +4,17 @@ import { useSelector } from "react-redux";
 
 export default function Cart() {
   const cartItems = useSelector((state) => {
-    return state?.cartItem?.map(({ productId, quantity }) => {
-      const productData = state.products.list.find(
-        (product) => product.id === productId
-      );
-      return { ...productData, quantity };
-    });
+    return state?.cartItem?.list
+      ?.map(({ productId, quantity }) => {
+        const productData = state.products.list.find(
+          (product) => product.id === productId
+        );
+        return { ...productData, quantity };
+      })
+      .filter(({ title }) => title);
   });
+
+  const cartLoading = useSelector((state) => state.cartItem.loading);
 
   const totalItemPrice = cartItems?.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -27,17 +31,21 @@ export default function Cart() {
           <div className="quantity">Quantity</div>
           <div className="total">Total</div>
         </div>
-        {cartItems?.map(({ id, title, rating, price, image, quantity }) => (
-          <CartItem
-            key={id}
-            productId={id}
-            title={title}
-            price={price}
-            quantity={quantity}
-            imageUrl={image}
-            rating={rating.rate}
-          />
-        ))}
+        {cartLoading ? (
+          <div className="spinner" />
+        ) : (
+          cartItems?.map(({ id, title, rating, price, image, quantity }) => (
+            <CartItem
+              key={id}
+              productId={id}
+              title={title}
+              price={price}
+              quantity={quantity}
+              imageUrl={image}
+              rating={rating.rate}
+            />
+          ))
+        )}
         <div className="cart-header cart-item-container">
           <div></div>
           <div></div>

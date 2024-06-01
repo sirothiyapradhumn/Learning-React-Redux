@@ -3,19 +3,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { cartAddItem, incItemQuantity } from '../../store/slices/cartItemSlice';
 import { wishCartAddItem } from '../../store/slices/wishlistSlice';
 
-function Product({ productID, title, rating, price, imageUrl }) {
+function Product({ productId, title, rating, price, imageUrl }) {
   const dispatch = useDispatch();
   const cartItem = useSelector((state) => state.cartItem);
   const wishList = useSelector((state) => state.wishList);
   const addToCart = () => {
-    const itemExistInCart = cartItem.find((item) => item.productID === productID);
-    if (itemExistInCart) return dispatch(incItemQuantity({productID}));
-    return dispatch(cartAddItem({ productID }));
+    const itemExistInCart = cartItem.find((item) => item.productId === productId);
+    if (itemExistInCart) return dispatch(incItemQuantity({productId}));
+    return dispatch(cartAddItem({ productId }));
   }
 
-  const addToWish = () => dispatch(wishCartAddItem({ productID, title, rating, price, imageUrl }));
+  const addToWish = () => dispatch(wishCartAddItem({ productId, title, rating, price, imageUrl }));
 
-  const disableWish = wishList?.length > 0 && wishList?.find((item) => item.productID === productID);
+  const disableWish = wishList?.length > 0 && wishList?.find((item) => item.productId === productId);
 
   return (
     <div className="product">

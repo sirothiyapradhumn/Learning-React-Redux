@@ -4,19 +4,19 @@ import { cartRemoveItem, decItemQuantity, incItemQuantity } from '../../store/sl
 import DeleteIcon from '../assets/delete-icon.svg';
 import { wishCartRemoveItem } from '../../store/slices/wishlistSlice';
 
-export default function CartItem({ productID, title, rating, price, imageUrl, quantity, showItemQuantity = true }) {
+export default function CartItem({ productId, title, rating, price, imageUrl, quantity, showItemQuantity = true }) {
   const dispatch = useDispatch();
   const handleIncQuantitiy = () => {
-    dispatch(incItemQuantity({ productID }));
+    dispatch(incItemQuantity({ productId }));
   }
   const handleDecQuantitiy = () => {
-    dispatch(decItemQuantity({ productID }));
+    dispatch(decItemQuantity({ productId }));
   }
   const handleRemoveWish = () => {
-    dispatch(wishCartRemoveItem({ productID }));
+    dispatch(wishCartRemoveItem({ productId }));
   }
   const handleRemoveCart = () => {
-    dispatch(cartRemoveItem({ productID }));
+    dispatch(cartRemoveItem({ productId }));
   }
   return (
     <div className="cart-item-container">

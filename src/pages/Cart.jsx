@@ -4,9 +4,9 @@ import { useSelector } from "react-redux";
 
 export default function Cart() {
   const cartItems = useSelector((state) => {
-    return state?.cartItem?.map(({ productID, quantity }) => {
+    return state?.cartItem?.map(({ productId, quantity }) => {
       const productData = state.products.list.find(
-        (product) => product.id === productID
+        (product) => product.id === productId
       );
       return { ...productData, quantity };
     });
@@ -30,7 +30,7 @@ export default function Cart() {
         {cartItems?.map(({ id, title, rating, price, image, quantity }) => (
           <CartItem
             key={id}
-            productID={id}
+            productId={id}
             title={title}
             price={price}
             quantity={quantity}

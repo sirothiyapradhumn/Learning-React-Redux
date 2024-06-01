@@ -13,7 +13,7 @@ export default function Home() {
       {productsList?.map(({ id, title, rating, price, image }) => (
         <Product
           key={id}
-          productID={id}
+          productId={id}
           title={title}
           rating={rating.rate}
           price={price}

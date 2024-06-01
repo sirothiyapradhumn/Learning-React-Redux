@@ -17,10 +17,10 @@ export default function Wishlist() {
           {/* <div className="quantity">Quantity</div>
           <div className="total">Total</div> */}
         </div>
-        {wishItem.map(({ productID, title, rating, price, imageUrl, quantity }) => (
+        {wishItem.map(({ productId, title, rating, price, imageUrl, quantity }) => (
           <CartItem
-            key={productID}
-            productID={productID}
+            key={productId}
+            productId={productId}
             title={title}
             price={price}
             quantity={quantity}

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const findIndex = (state, action) => state.findIndex(
-  (cartItem) => cartItem.productID === action.payload.productID
+  (cartItem) => cartItem.productId === action.payload.productId
 );
 
 const slice = createSlice({

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import CartIcon from "../assets/cart-icon.svg";
 import WishIcon from "../assets/wish-icon.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { updateAllProduct } from "../../store/slices/productSlice";
+import { fetchProduct, fetchProductError, updateAllProduct } from "../../store/slices/productSlice";
 import { productList } from "../../store/productList";
 
 export default function Header() {
@@ -13,8 +13,19 @@ export default function Header() {
     (acc, item) => acc + item.quantity,
     0
   );
+  const getProduct = async() => {
+    try {
+      dispatch(fetchProduct())
+      const reponse = await fetch('https://fakestoreapi.com/products');
+      const data = await reponse.json();
+      dispatch(updateAllProduct(data))
+      return data;
+    } catch (e) {
+      dispatch(fetchProductError(e.message));
+    }
+  }
   useEffect(() => {
-    dispatch(updateAllProduct(productList))
+    getProduct();
   }, []);
 
   return (

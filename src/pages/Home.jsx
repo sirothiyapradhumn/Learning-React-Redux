@@ -1,12 +1,16 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import Product from '../components/Product'
+import React from "react";
+import { useSelector } from "react-redux";
+import Product from "../components/Product";
 
 export default function Home() {
-  const productsList = useSelector((state) => state.products)
-  return (
+  const productsList = useSelector((state) => state.products.list);
+  const productLoading = useSelector((state) => state.products.loading);
+  const productError = useSelector((state) => state.products.error);
+  return productLoading ? (
+    <div className='spinner' />
+  ) : productError || (
     <div className="products-container">
-      {productsList.map(({ id, title, rating, price, image }) => (
+      {productsList?.map(({ id, title, rating, price, image }) => (
         <Product
           key={id}
           productID={id}
@@ -17,5 +21,5 @@ export default function Home() {
         />
       ))}
     </div>
-  )
+  );
 }

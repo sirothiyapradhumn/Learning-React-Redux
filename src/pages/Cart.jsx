@@ -1,11 +1,21 @@
-import React from 'react'
-import CartItem from '../components/CartItem'
-import { useSelector } from 'react-redux'
+import React from "react";
+import CartItem from "../components/CartItem";
+import { useSelector } from "react-redux";
 
 export default function Cart() {
-  const cartItems = useSelector((state) => state.cartItem);
+  const cartItems = useSelector((state) => {
+    return state?.cartItem?.map(({ productID, quantity }) => {
+      const productData = state.products.list.find(
+        (product) => product.id === productID
+      );
+      return { ...productData, quantity };
+    });
+  });
 
-  const totalItemPrice = cartItems.reduce((acc, item) => acc+item.price*item.quantity, 0);
+  const totalItemPrice = cartItems?.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
 
   return (
     <div className="cart-container">
@@ -17,15 +27,15 @@ export default function Cart() {
           <div className="quantity">Quantity</div>
           <div className="total">Total</div>
         </div>
-        {cartItems.map(({ productID, title, rating, price, imageUrl, quantity }) => (
+        {cartItems?.map(({ id, title, rating, price, image, quantity }) => (
           <CartItem
-            key={productID}
-            productID={productID}
+            key={id}
+            productID={id}
             title={title}
             price={price}
             quantity={quantity}
-            imageUrl={imageUrl}
-            rating={rating}
+            imageUrl={image}
+            rating={rating.rate}
           />
         ))}
         <div className="cart-header cart-item-container">
@@ -36,5 +46,5 @@ export default function Cart() {
         </div>
       </div>
     </div>
-  )
+  );
 }

@@ -10,7 +10,7 @@ function Product({ productID, title, rating, price, imageUrl }) {
   const addToCart = () => {
     const itemExistInCart = cartItem.find((item) => item.productID === productID);
     if (itemExistInCart) return dispatch(incItemQuantity({productID}));
-    return dispatch(cartAddItem({ productID, title, rating, price, imageUrl }));
+    return dispatch(cartAddItem({ productID }));
   }
 
   const addToWish = () => dispatch(wishCartAddItem({ productID, title, rating, price, imageUrl }));

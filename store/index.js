@@ -13,6 +13,6 @@ const reducer = {
 
 export const store = configureStore({
   reducer,
-  middleware: () => [logger],
+  // middleware: () => [logger],
  });
 

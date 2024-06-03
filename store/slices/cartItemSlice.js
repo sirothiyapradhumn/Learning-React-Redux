@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 const findIndex = (state, action) =>
   state.list.findIndex(
@@ -44,6 +44,20 @@ const slice = createSlice({
     },
   },
 });
+
+export const getCartItem = (state) => {
+  return state?.cartItem?.list
+    ?.map(({ productId, quantity }) => {
+      const productData = state.products.list.find(
+        (product) => product.id === productId
+      );
+      return { ...productData, quantity };
+    })
+    .filter(({ title }) => title);
+};
+export const getAllCartItems = createSelector(getCartItem, (state) => state);
+export const getCartLoadingState = (state) => state.cartItem.loading;
+export const getCartError = (state) => state.cartItem.error;
 
 export const {
   cartAddItem,

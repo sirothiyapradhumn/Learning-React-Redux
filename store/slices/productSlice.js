@@ -23,5 +23,9 @@ const slice = createSlice({
   },
 });
 
+export const getAllProducts = (state) => state.products.list;
+export const getProductLoadingState = (state) => state.products.loading;
+export const getProductError = (state) => state.products.error;
+
 export const { updateAllProduct, fetchProduct, fetchProductError } = slice.actions;
 export default slice.reducer;

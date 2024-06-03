@@ -1,20 +1,12 @@
 import React from "react";
 import CartItem from "../components/CartItem";
 import { useSelector } from "react-redux";
+import { getAllCartItems, getCartError, getCartLoadingState } from "../../store/slices/cartItemSlice";
 
 export default function Cart() {
-  const cartItems = useSelector((state) => {
-    return state?.cartItem?.list
-      ?.map(({ productId, quantity }) => {
-        const productData = state.products.list.find(
-          (product) => product.id === productId
-        );
-        return { ...productData, quantity };
-      })
-      .filter(({ title }) => title);
-  });
-
-  const cartLoading = useSelector((state) => state.cartItem.loading);
+  const cartItems = useSelector(getAllCartItems);
+  const cartLoading = useSelector(getCartLoadingState);
+  const cartError = useSelector(getCartError);
 
   const totalItemPrice = cartItems?.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -33,7 +25,7 @@ export default function Cart() {
         </div>
         {cartLoading ? (
           <div className="spinner" />
-        ) : (
+        ) : cartError ? <div>{cartError}</div> : (
           cartItems?.map(({ id, title, rating, price, image, quantity }) => (
             <CartItem
               key={id}

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { cartAddItem, incItemQuantity } from '../../store/slices/cartItemSlice';
 import { wishCartAddItem } from '../../store/slices/wishlistSlice';
@@ -42,11 +41,5 @@ function Product({ productId, title, rating, price, imageUrl }) {
     </div>
   )
 }
-Product.propTypes = {
-  productId: PropTypes.string,
-  title: PropTypes.string,
-  rating: PropTypes.number,
-  price: PropTypes.number,
-  imageUrl: PropTypes.string
-}
+
 export default Product;

@@ -8,8 +8,12 @@ import {
   fetchProductError,
   updateAllProduct,
 } from "../../store/slices/productSlice";
-// import { productList } from "../../store/productList";
-import { fetchCartError, fetchCartitem, loadCartItem } from "../../store/slices/cartItemSlice";
+import {
+  fetchCartError,
+  fetchCartitem,
+  loadCartItem,
+} from "../../store/slices/cartItemSlice";
+import { fetchData } from "../../store/middleware/api";
 
 export default function Header() {
   const state = useSelector((state) => state);
@@ -18,32 +22,37 @@ export default function Header() {
     (acc, item) => acc + item.quantity,
     0
   );
-  const getProduct = async () => {
-    try {
-      dispatch(fetchProduct());
-      const reponse = await fetch("https://fakestoreapi.com/products");
-      const data = await reponse.json();
-      dispatch(updateAllProduct(data));
-      return data;
-    } catch (e) {
-      dispatch(fetchProductError(e.message));
-    }
-  };
 
-  const getCart = async () => {
-    try {
-      dispatch(fetchCartitem())
-      const reponse = await fetch("https://fakestoreapi.com/carts/5");
-      const data = await reponse.json();
-      dispatch(loadCartItem(data));
-      return data;
-    } catch (e) {
-      dispatch(fetchCartError(e.message));
-    }
-  };
+
   useEffect(() => {
-    getProduct();
-    getCart();
+    dispatch(
+      fetchData({
+        url: "products",
+        onSuccess: updateAllProduct.type,
+        onStart: fetchProduct.type,
+        onError: fetchProductError.type,
+      })
+    );
+
+    dispatch(
+      fetchData({
+        url: "carts/5",
+        onSuccess: loadCartItem.type,
+        onStart: fetchCartitem.type,
+        onError: fetchCartError.type,
+      })
+    );
+
+    // we used action creator for api call, above fn is same
+    // dispatch({
+    //   type: "api/makeCall",
+    //   payload: {
+    //     url: "carts/5",
+    //     onSuccess: loadCartItem.type,
+    //     onStart: fetchCartitem.type,
+    //     onError: fetchCartError.type,
+    //   },
+    // });
   }, []);
 
   return (

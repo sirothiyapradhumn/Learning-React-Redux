@@ -10,7 +10,7 @@ const slice = createSlice({
   initialState: {
     loading: false,
     list: [],
-    error: '',
+    error: "",
   },
   reducers: {
     fetchCartitem(state) {
@@ -58,6 +58,20 @@ export const getCartItem = (state) => {
 export const getAllCartItems = createSelector(getCartItem, (state) => state);
 export const getCartLoadingState = (state) => state.cartItem.loading;
 export const getCartError = (state) => state.cartItem.error;
+
+export const fetchCartitemData = () => (dispatch) => {
+  (async function () {
+    try {
+      dispatch(fetchCartitem());
+      const reponse = await fetch("https://fakestoreapi.com/carts/5");
+      const data = await reponse.json();
+      dispatch(loadCartItem(data));
+      return data;
+    } catch (e) {
+      dispatch(fetchCartError(e.message));
+    }
+  })();
+};
 
 export const {
   cartAddItem,

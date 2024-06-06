@@ -3,17 +3,8 @@ import { Link } from "react-router-dom";
 import CartIcon from "../assets/cart-icon.svg";
 import WishIcon from "../assets/wish-icon.svg";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchProduct,
-  fetchProductError,
-  updateAllProduct,
-} from "../../store/slices/productSlice";
-import {
-  fetchCartError,
-  fetchCartitem,
-  loadCartItem,
-} from "../../store/slices/cartItemSlice";
-import { fetchData } from "../../store/middleware/api";
+import { fetchProductItemData } from "../../store/slices/productSlice";
+import { fetchCartitemData } from "../../store/slices/cartItemSlice";
 
 export default function Header() {
   const state = useSelector((state) => state);
@@ -23,36 +14,10 @@ export default function Header() {
     0
   );
 
-
   useEffect(() => {
-    dispatch(
-      fetchData({
-        url: "products",
-        onSuccess: updateAllProduct.type,
-        onStart: fetchProduct.type,
-        onError: fetchProductError.type,
-      })
-    );
-
-    dispatch(
-      fetchData({
-        url: "carts/5",
-        onSuccess: loadCartItem.type,
-        onStart: fetchCartitem.type,
-        onError: fetchCartError.type,
-      })
-    );
-
-    // we used action creator for api call, above fn is same
-    // dispatch({
-    //   type: "api/makeCall",
-    //   payload: {
-    //     url: "carts/5",
-    //     onSuccess: loadCartItem.type,
-    //     onStart: fetchCartitem.type,
-    //     onError: fetchCartError.type,
-    //   },
-    // });
+    // redux-thunk
+    dispatch(fetchProductItemData())
+    dispatch(fetchCartitemData());
   }, []);
 
   return (
